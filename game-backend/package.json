@@ -1,23 +1,21 @@
 {
   "name": "game-backend",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.16.1",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-graphql": "^0.11.0",
+    "apollo-server": "^2.16.1",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.3.0",
-    "graphql-tools": "^6.0.18",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "mongodb": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.0",
-    "morgan": "~1.9.1"
+    "nodemon": "^2.0.4"
   }
 }
