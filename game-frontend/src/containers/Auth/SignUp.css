@@ -1,0 +1,20 @@
+input {
+    border: unset;
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 8px 10px;
+    background: transparent !important;
+    fill: transparent !important;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px #282c34 inset !important; /* Change the color to your own background color */
+    -webkit-text-fill-color: white;
+}
