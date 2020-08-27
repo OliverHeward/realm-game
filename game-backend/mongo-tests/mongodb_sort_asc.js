@@ -5,7 +5,7 @@ MongoClient.connect(url, (err, db) => {
     if (err) throw err;
     var dbo = db.db("mydb");
     var mysort = {name: 1};
-    dbo.collection("users").find().sort(mysort).toArray((err, result) => {
+    dbo.collection("posts").find().sort(mysort).toArray((err, result) => {
         if (err) throw err;
         console.log("attempting to sort collection");
         console.log(result);

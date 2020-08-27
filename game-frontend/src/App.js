@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import SignUp from "./containers/Auth/SignUp";
+import SignUp from "./containers/Auth/SignUp/SignUp";
+import image from './assets/images/c584c2cae05a4591db1d40a24903bb90.jpg';
+import SignIn from "./containers/Auth/SignIn/SignIn";
 
 function App() {
   // var [user, fetchedUser] = useState();
@@ -23,9 +25,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <h3 className="header-title">Forgotten Realms</h3>
       </header>
-      <span>Welcome to Realm</span>
-      <SignUp />
+      <section className="entry">
+        <img src={image} />
+        <div className="text-container">
+          <h3>Welcome to Forgotten Realms</h3>
+          <div className="auth-control">  
+            <SignIn />
+            <SignUp />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

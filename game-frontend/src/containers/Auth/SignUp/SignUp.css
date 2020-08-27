@@ -1,3 +1,11 @@
+form {
+    margin-top: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
 input {
     border: unset;
     border: 1px solid white;

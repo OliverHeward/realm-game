@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Input from "../../components/UI/Input/Input";
+import Input from "../../../components/UI/Input/Input";
 
 import './SignUp.css';
 
@@ -11,7 +11,7 @@ const SignUp = () => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'First Name'
+                placeholder: 'Username'
             },
             value: '',
             validation: {
@@ -21,21 +21,7 @@ const SignUp = () => {
             valid: false,
             touched: false
         },
-        last_name: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Last Name'
-            },
-            value: '',
-            validation: {
-                required: true,
-                isEmail: false
-            },
-            valid: false,
-            touched: false
-        },
-        email_address: {
+        email: {
             elementType: 'input',
             elementConfig: {
                 type: 'email',
@@ -49,7 +35,7 @@ const SignUp = () => {
             valid: false,
             touched: false
         },
-        confirm_email_address: {
+        confirm_email: {
             elementType: 'input',
             elementConfig: {
                 type: 'email',
@@ -115,9 +101,10 @@ const SignUp = () => {
 
     return (
         <div className="auth-wrap">
-            <h2>Sign Up!</h2>
+            <span>If you don't have an account, sign up below.</span>
             <form className="sign-up-form">
                 {form}
+                <button role="submit" type="submit" name="submit" className="">Enroll</button>
             </form>
         </div>
     )

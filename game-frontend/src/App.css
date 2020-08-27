@@ -6,8 +6,11 @@
 }
 
 .App-logo {
-  height: 65px;
+  height: 50px;
   pointer-events: none;
+  position: absolute;
+  left: 5px;
+  top: 0px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,8 +27,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding: 6px 10px;
-  margin-bottom: 20px;
+  padding: 7px 10px;
+  height: 45px;
+  position: relative;
 }
 
 .App-link {
@@ -39,4 +43,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+h3.header-title {
+  text-transform: uppercase;
+  margin: 0;
+}
+section.entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(100vh - 56px);
+  object-fit: cover;
+  width: 100%;
+
+}
+
+section.entry img {
+  max-height: inherit;
+  object-fit: cover;
+  width: 100%;
+}
+
+div.text-container {
+  position: absolute;
+  background-color: #282c34;
+  padding: 20px 30px;
+}
+
+div.text-container h3 {
+  margin: 0;
+  margin: 5px auto;
+}
+
+div.auth-control {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+div.auth-control div.sign-up,
+div.auth-control div.sign-in {
+  margin: 0px 40px;
 }

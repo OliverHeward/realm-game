@@ -21,7 +21,7 @@ function generateToken(user) {
         { expiresIn: "1h" }
       );
 }
-
+ 
 module.exports = {
   Query: {
     async getUsers() {
@@ -65,12 +65,13 @@ module.exports = {
 
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } }
+      { registerInput: { username, email, confirmEmail, password, confirmPassword } }
     ) {
       // Validate user data
       const { valid, errors } = validateRegisterInput(
         username,
         email,
+        confirmEmail,
         password,
         confirmPassword
       );
@@ -79,6 +80,7 @@ module.exports = {
       }
       // make sure user doesn't exist
       const user = await User.findOne({ username });
+      
       if (user) {
         throw new UserInputError("Username is taken", {
           errors: {
