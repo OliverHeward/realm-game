@@ -1,0 +1,43 @@
+.forum-post {
+  box-sizing: border-box;
+  padding: 5px 12px;
+  width: 95%;
+  border: 1px solid black;
+  margin: 5px auto;
+
+  .forum-author {
+    margin: 5px 0px 0px;
+  }
+  .forum-body {
+    margin: 10px 0px;
+  }
+  div.meta-data {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div.forum-tracking {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row nowrap;
+      .forum-meta-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row nowrap;
+        font-size: 16px;
+        text-align: center;
+        .forum-like, .forum-comment {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+      }
+      .forum-meta-text:first-of-type {
+        margin-right: 10px;
+      }
+    }
+    .forum-meta-text {
+    }
+  }
+}
