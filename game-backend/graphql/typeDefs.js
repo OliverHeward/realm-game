@@ -36,9 +36,13 @@ module.exports = gql`
     resources: Resources
     ammo_pouch: [AmmoPouch]
     rune_pouch: [RunePouch]
+    worn_equipment: Worn
+    backpack: Backpack
+    bank: Bank
+  }
+  type Worn {
     equipment: [Equipment]
-    backpack: [Backpack]
-    bank: [Bank]
+    worn_equipment_stats: ItemStats
   }
   type Currency {
     gold: Int!
@@ -86,16 +90,21 @@ module.exports = gql`
     magic_defence: Int!
   }
   type Backpack {
+    equipment: [Equipment]
+    misc: [MiscItem]
+  }
+  type MiscItem {
     item_name: String!
     quantity: Int!
+    item_description: String!
+    item_type: String!
   }
   type Bank {
-    item_name: String!
-    quantity: Int!
+    equipment: [Equipment]
+    misc: [MiscItem]
   }
 
   # Mission Type Defs
-
   type Mission {
     id: ID!
     mission_title: String!

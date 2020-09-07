@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
-
-import gql from "graphql-tag";
+import { useQuery, gql } from "@apollo/react-hooks";
 import { AuthContext } from "../context/auth";
+
 import Backpack from "../containers/Inventory/Backpack";
 import Equipment from "../containers/Inventory/Equipment";
 import Resources from "../containers/Inventory/Resources";
@@ -15,7 +14,7 @@ const FETCH_INVENTORY_QUERY = gql`
         gold
         ether
         tokens
-      }
+      } 
       resources {
         wood
         stone

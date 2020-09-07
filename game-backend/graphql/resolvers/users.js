@@ -25,10 +25,10 @@ function generateToken(user) {
 
 module.exports = {
   Query: {
-    getUsers: async (_, {userName}) => {
+    getUsers: async (_, { userName }) => {
       try {
         console.log("trying to find user");
-        const users = await User.findOne({username: userName});
+        const users = await User.findOne({ username: userName });
         console.log(users);
         return users;
       } catch (err) {
@@ -130,11 +130,11 @@ module.exports = {
             rarity: "normal",
             item_type: {
               slot_type: "Ammunition",
-              equipment_type: "Ammo"
+              equipment_type: "Ammo",
             },
             item_description: "Basic arrows.",
             ranged_attack: 2,
-          }
+          },
         ],
         rune_pouch: [
           {
@@ -143,7 +143,7 @@ module.exports = {
             rarity: "normal",
             item_type: {
               slot_type: "Runic",
-              equipment_type: "Runes"
+              equipment_type: "Runes",
             },
             item_description: "Basic air rune for casting spells.",
           },
@@ -153,7 +153,7 @@ module.exports = {
             rarity: "normal",
             item_type: {
               slot_type: "Runic",
-              equipment_type: "Runes"
+              equipment_type: "Runes",
             },
             item_description: "Basic fire rune for casting spells.",
           },
@@ -163,7 +163,7 @@ module.exports = {
             rarity: "normal",
             item_type: {
               slot_type: "Runic",
-              equipment_type: "Runes"
+              equipment_type: "Runes",
             },
             item_description: "Basic water rune for casting spells.",
           },
@@ -173,57 +173,141 @@ module.exports = {
             rarity: "normal",
             item_type: {
               slot_type: "Runic",
-              equipment_type: "Runes"
+              equipment_type: "Runes",
             },
             item_description: "Basic earth rune for casting spells.",
           },
         ],
-        equipment: [
-          {
-            item_name: "Bronze Sword",
-            rarity: "normal",
-            item_type: {
-              slot_type: "Primary",
-              equipment_type: "Sword",
+        worn_equipment: {
+          equipment: [
+            {
+              item_name: "Cloth shirt",
+              rarity: "normal",
+              item_type: {
+                slot_type: "Primary",
+                equipment_type: "Sword",
+              },
+              item_description: "A few holes, but it will hold for a little... although it could use with a wash.",
+              item_stats: {
+                attack: 0,
+                ranged_attack: 0,
+                magic_attack: 0,
+                defence: 1,
+                ranged_defence: 0,
+                magic_defence: 2,
+              }
             },
-            item_description:
-              "Your first sword, crafted from when you we're but a boy... many memories",
-            item_stats: {
-              attack: 1,
-              ranged_attack: 0,
-              magic_attack: 0,
-              defence: 0,
-              hitpoints: 0,
-              ranged_defence: 0,
-              magic_defence: 0,
-            },
+            {
+              item_name: "Dirty linen trousers",
+              rarity: "normal",
+              item_type: {
+                slot_type: "Legs",
+                equipment_type: "Legs",
+              },
+              item_description: "Definitely slept in something the other night whilst wearing these...",
+              item_stats: {
+                attack: 0,
+                ranged_attack: 0,
+                magic_attack: 0,
+                defence: 1,
+                ranged_defence: 0,
+                magic_defence: 1
+              }
+            }
+          ],
+          worn_equipment_stats: {
+            attack: 0,
+            ranged_attack: 0,
+            magic_attack: 0,
+            defence: 0,
+            hitpoints: 100,
+            ranged_defence: 0,
+            magic_defence: 0,
           },
-          {
-            item_name: "Wooden Shield",
-            rarity: "normal",
-            item_type: {
-              slot_type: "Primary",
-              equipment_type: "Sword",
+        },
+        backpack: {
+          equipment: [
+            {
+              item_name: "Bronze Sword",
+              rarity: "normal",
+              item_type: {
+                slot_type: "Primary",
+                equipment_type: "Sword",
+              },
+              item_description:
+                "Your first sword, crafted from when you we're but a boy... many memories",
+              item_stats: {
+                attack: 1,
+                ranged_attack: 0,
+                magic_attack: 0,
+                defence: 0,
+                hitpoints: 0,
+                ranged_defence: 0,
+                magic_defence: 0,
+              },
             },
-            item_description:
-              "Crafted from the tree back home that you swore mum you didn't take a chunk out of.",
-            item_stats: {
-              attack: 0,
-              ranged_attack: 0,
-              magic_attack: 0,
-              defence: 6,
-              hitpoints: 0,
-              ranged_defence: 3,
-              magic_defence: 0,
+            {
+              item_name: "Wooden Shield",
+              rarity: "normal",
+              item_type: {
+                slot_type: "Primary",
+                equipment_type: "Sword",
+              },
+              item_description:
+                "Crafted from the tree back home that you swore mum you didn't take a chunk out of.",
+              item_stats: {
+                attack: 0,
+                ranged_attack: 0,
+                magic_attack: 0,
+                defence: 6,
+                hitpoints: 0,
+                ranged_defence: 3,
+                magic_defence: 0,
+              },
             },
-          },
-        ],
-        backpack: [
-          {
-            item_name: "Sorcerer Stone",
-            quantity: 1,
-          },
-        ],
+          ],
+          misc: [
+            {
+              item_name: "Frayed fishing net",
+              rarity: "normal",
+              item_description: "Served me well, but I\'m always surprised I ever catch anything with this.",
+              item_type: "Fishing",
+              quantity: 1,
+            },
+          ],
+        },
+        bank: {
+          equipment: [
+            {
+              item_name: "Fathers Axe",
+              rarity: "normal",
+              item_type: {
+                slot_type: "Primary",
+                equipment_type: "Axe",
+              },
+              item_description: "Written on a small note attached to the axe are the words: \"Please, only use in grave peril my child \" ",
+              item_stats: {
+                attack: 4,
+                ranged_attack: 0,
+                magic_attack: 0,
+                defence: 6,
+                hitpoints: 0,
+                ranged_defence: 3,
+                magic_defence: 0,
+              }
+            },
+          ],
+          misc: [
+            {
+              item_name: "Welcome Pack",
+              rarity: "exotic",
+              item_description:
+                "A present, from me to you... thank you for beginning your adventure",
+              item_type: "Pack",
+              quantity: 1
+            },
+          ],
+        },
         user: res._id,
       });
 

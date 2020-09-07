@@ -28,14 +28,7 @@ const Backpack = () => {
   return (
     <div>
       <h3>Backpack Tab</h3>
-      {!loading
-        ? data.getInventory &&
-          data.getInventory.backpack.map((item) => (
-            <div className="backpack-node">
-              <p>{item.item_name}</p>
-            </div>
-          ))
-        : null}
+      
     </div>
   );
 };

@@ -59,7 +59,6 @@ main.app-main {
   margin: 0 auto;
 }
 
-
 /*==========
 Overrides
 ==========*/
@@ -223,5 +222,54 @@ div.pouch-wrapper {
         display: block;
       }
     }
+  }
+}
+
+/***************
+MISSION TAB
+***************/
+
+div.mission-tab {
+  background: #585858;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 15px auto;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  padding: 5px 8px;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  flex-flow: row wrap;
+  &:hover {
+    transform: scale(1.01);
+  }
+  div.mission-text,
+  div.mission-meta,
+  div.mission-rewards,
+  div.mission-info {
+    width: 50%;
+  }
+  div.mission-text {
+    .mission-title {
+      margin: 0;
+    }
+  }
+  div.mission-meta {
+    p {
+      margin: 0;
+    }
+  }
+
+  div.mission-rewards {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+  }
+
+  div.mission-info {
+    display: flex;
+    flex-flow: column nowrap;
   }
 }
