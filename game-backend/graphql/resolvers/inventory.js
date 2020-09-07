@@ -6,7 +6,6 @@ module.exports = {
   Query: {
     getInventory: async (_, { userInventId }, context) => {
       const currUser = checkAuth(context);
-      console.log(currUser.id.toString());
       try {
         const inventory = await Inventory.findOne({user: userInventId}); // find Inventory assigned to user _id created by Mongo
         console.log("[inventory user]", inventory);

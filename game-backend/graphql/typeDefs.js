@@ -43,7 +43,7 @@ module.exports = gql`
   type Currency {
     gold: Int!
     ether: Int!
-    tokens: Int!
+    tokens: Int
   }
   type Resources {
     wood: Int!
@@ -99,13 +99,13 @@ module.exports = gql`
   type Mission {
     id: ID!
     mission_title: String!
-    missions_level: String!
+    mission_level: String!
     mission_time: String!
     mission_description: String!
     mission_attack_style: String
     recommended_armour_type: String
     recommended_attack_style: String
-    mission_rewards: [Rewards]
+    mission_rewards: Rewards
     users_on_mission: [MissionUser]
   }
 
@@ -129,7 +129,7 @@ module.exports = gql`
   }
 
   type Rewards {
-    currency: [Currency]
+    currency: Currency
     experience: Int!
     items: [RewardItem]
   }
@@ -148,10 +148,11 @@ module.exports = gql`
   }
 
   type Query {
-    getUsers: [User]
+    getUsers(userName: String!): User
     getPosts: [Post]
     getPost(postId: ID!): Post
     getInventory(userInventId: ID!): Inventory
+    getMissions: [Mission]
   }
   type Mutation {
     register(registerInput: RegisterInput): User!

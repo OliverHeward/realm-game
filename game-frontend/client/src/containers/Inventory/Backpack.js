@@ -22,6 +22,9 @@ const Backpack = () => {
       userId: user.id,
     },
   });
+  if(!loading) {
+    console.log(data);
+  }
   return (
     <div>
       <h3>Backpack Tab</h3>

@@ -1,16 +1,15 @@
 import React, { useState, useContext } from "react";
 import { Form, Button } from "semantic-ui-react";
-import { useMutation } from "@apollo/react-hooks";
-import { gql } from "@apollo/react-hooks";
+import { useMutation, gql, useApolloClient } from "@apollo/react-hooks";
 
 import { AuthContext } from "../../context/auth.js";
 import { useForm } from "../../utils/hooks";
 import { withRouter } from "react-router-dom";
 
-const Login = props => {
+const Login = (props) => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
-
+  const client = useApolloClient();
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: "",
     password: "",
@@ -19,6 +18,7 @@ const Login = props => {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update: (_, { data: { login: userData } }) => {
       context.login(userData);
+
       props.history.push("/dashboard");
     },
     onError: (err) => {

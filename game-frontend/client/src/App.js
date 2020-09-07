@@ -1,10 +1,13 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { AuthProvider, AuthContext } from "./context/auth";
-import AuthRoute from './utils/AuthRoute';
+
+import { useQuery, gql } from "@apollo/client";
+
+import AuthRoute from "./utils/AuthRoute";
 
 import Home from "./pages/Home";
 import Register from "./pages/Register";
@@ -18,23 +21,36 @@ import Layout from "./hoc/Layout/Layout";
 import Account from "./pages/Account";
 import Inventory from "./pages/Inventory";
 
-
 function App() {
+  const IS_LOGGED_IN = gql`
+    query User {
+      userLoggedIn @client
+      userObject @client
+    }
+  `;
 
-  const {user} = useContext(AuthContext);
+  const {data} = useQuery(IS_LOGGED_IN);
+
+  if (data) {
+    console.log("[data] logged in", data.userObject);
+  } else {
+    console.log("[data] not logged in", data);
+  }
+
+  const { user } = useContext(AuthContext);
 
   return (
     <AuthProvider>
       <Router>
         <Layout>
-        <Route exact path="/" component={Home} />
-        <AuthRoute exact path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/quest" component={Quest} />
-        <Route path="/inventory" component={Inventory} />
-        <Route path="/missions" component={Missions} />
-        <Route path="/account" component={Account} />
-        <Route exact path="/forum" component={Forum} />
+          <Route exact path="/" component={Home} />
+          <AuthRoute exact path="/register" component={Register} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/quest" component={Quest} />
+          <Route path="/inventory" component={Inventory} />
+          <Route path="/missions" component={Missions} />
+          <Route path="/account" component={Account} />
+          <Route exact path="/forum" component={Forum} />
         </Layout>
         <Footer />
       </Router>

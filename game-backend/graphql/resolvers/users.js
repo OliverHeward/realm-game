@@ -25,9 +25,11 @@ function generateToken(user) {
 
 module.exports = {
   Query: {
-    async getUsers() {
+    getUsers: async (_, {userName}) => {
       try {
-        const users = await User.find();
+        console.log("trying to find user");
+        const users = await User.findOne({username: userName});
+        console.log(users);
         return users;
       } catch (err) {
         throw new Error(err);

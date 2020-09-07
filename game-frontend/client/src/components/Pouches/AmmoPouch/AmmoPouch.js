@@ -2,11 +2,9 @@ import React, { useContext, useState } from "react";
 import PouchItem from "../PouchItem/Runes";
 
 import { AuthContext } from "../../../context/auth";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import { gql, useQuery } from "@apollo/client";
 
 import Arrows from "../PouchItem/Arrows";
-import Aux from "../../../hoc/Layout/Aux";
 
 const FETCH_AMMO_QUERY = gql`
   query getInvent($userId: ID!) {

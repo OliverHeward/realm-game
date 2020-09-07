@@ -2,6 +2,8 @@ const userResolvers = require('./users');
 const postResolvers = require('./posts');
 const commentsResolvers = require('./comments');
 const inventoryResolvers = require('./inventory');
+const missionResolvers = require('./missions');
+
 
 
 module.exports = {
@@ -11,7 +13,9 @@ module.exports = {
     },
     Query: {
         ...postResolvers.Query,
-        ...inventoryResolvers.Query
+        ...inventoryResolvers.Query,
+        ...userResolvers.Query,
+        ...missionResolvers.Query
     },
     Mutation: {
         ...userResolvers.Mutation,

@@ -1,31 +1,56 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import App from "./App";
-import ApolloClient from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
-import { ApolloProvider } from "@apollo/react-hooks"
-import { setContext } from 'apollo-link-context'
+import { ApolloProvider, ApolloLink } from "@apollo/react-hooks";
+import { setContext } from "@apollo/client/link/context";
+
+import { withClientState } from "apollo-link-state";
+import jwtDecode from "jwt-decode";
+
+const cache = new InMemoryCache();
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:5000',
+  uri: "http://localhost:5000",
 });
 
 const authLink = setContext(() => {
-    const token = localStorage.getItem("jwtToken");
-    return{
-        headers: {
-            Authorization: token ? `Bearer ${token}` : ''
-        }
-    }
+  const token = localStorage.getItem("jwtToken");
+
+  if (token) {
+    const IS_LOGGED_IN = gql`
+      query User {
+        userLoggedIn @client
+        userId @client
+        userObject @client
+      }
+    `;
+
+    client.writeQuery({
+      query: IS_LOGGED_IN,
+      data: {
+        userLoggedIn: !!localStorage.getItem("jwtToken"),
+        userId: jwtDecode(localStorage.getItem("jwtToken")).id,
+        userObject: jwtDecode(localStorage.getItem("jwtToken")),
+      },
+    });
+  }
+
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  };
 });
 
 const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-})
+  cache,
+  link: authLink.concat(httpLink),
+  resolvers: {},
+});
 
 export default (
-    <ApolloProvider client={client}>
-        <App />
-    </ApolloProvider>
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
 );
