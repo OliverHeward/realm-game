@@ -1,17 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Container, Card } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 
 import UserInformation from "../components/UserInformation/UserInformation";
 
 const Dashboard = () => {
-  const quests = (event) => {
-    console.log("Quests tab");
-  };
-  const missions = () => {
-    console.log("Missions tab");
-  };
-
   return (
     <div className="dashboard">
       <UserInformation />

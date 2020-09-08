@@ -1,0 +1,14 @@
+div.backpack {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    div.backpack-item {
+        width: 100px; 
+        margin: 10px auto;
+        border-radius: 6px;
+        background-color: #3a3a3a;
+        padding: 6px;
+        height: 100px;
+    }
+}

@@ -37,8 +37,6 @@ function App() {
     console.log("[data] not logged in", data);
   }
 
-  const { user } = useContext(AuthContext);
-
   return (
     <AuthProvider>
       <Router>

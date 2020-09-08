@@ -44,7 +44,7 @@ const AmmoPouch = () => {
         {!loading
           ? data.getInventory &&
             data.getInventory.ammo_pouch.map((ammo) => (
-                <div className="item-wrapper" onMouseEnter={handleEnter} onMouseLeave={handleLeave} >
+                <div className="item-wrapper" onMouseEnter={handleEnter} onMouseLeave={handleLeave} key={ammo.item_name} >
                     <Arrows key={ammo.item_name} quantity={ammo.quantity} />
                     <div className={`info-box ${showInfo ? 'show-tab' : '' } `}>
                         <p>{ammo.item_name}</p>

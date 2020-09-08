@@ -162,6 +162,7 @@ module.exports = gql`
     getPost(postId: ID!): Post
     getInventory(userInventId: ID!): Inventory
     getMissions: [Mission]
+    getEquipment(userInventId: ID!): Inventory
   }
   type Mutation {
     register(registerInput: RegisterInput): User!

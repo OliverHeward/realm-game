@@ -27,9 +27,7 @@ module.exports = {
   Query: {
     getUsers: async (_, { userName }) => {
       try {
-        console.log("trying to find user");
         const users = await User.findOne({ username: userName });
-        console.log(users);
         return users;
       } catch (err) {
         throw new Error(err);
@@ -192,9 +190,10 @@ module.exports = {
                 attack: 0,
                 ranged_attack: 0,
                 magic_attack: 0,
+                hitpoints: 0,
                 defence: 1,
                 ranged_defence: 0,
-                magic_defence: 2,
+                magic_defence: 1,
               }
             },
             {
@@ -209,6 +208,7 @@ module.exports = {
                 attack: 0,
                 ranged_attack: 0,
                 magic_attack: 0,
+                hitpoints: 0,
                 defence: 1,
                 ranged_defence: 0,
                 magic_defence: 1
@@ -219,10 +219,10 @@ module.exports = {
             attack: 0,
             ranged_attack: 0,
             magic_attack: 0,
-            defence: 0,
+            defence: 2,
             hitpoints: 100,
             ranged_defence: 0,
-            magic_defence: 0,
+            magic_defence: 2,
           },
         },
         backpack: {

@@ -32,7 +32,7 @@ const Missions = (props) => {
   const { loading, error, data } = useQuery(FETCH_MISSIONS_QUERY);
 
   if (!loading) {
-    console.log(data);
+    // console.log(data);
   }
   return (
     <div>

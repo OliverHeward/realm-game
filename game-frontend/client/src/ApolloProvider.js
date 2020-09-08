@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import App from "./App";
+
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
-import { ApolloProvider, ApolloLink } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/react-hooks";
 import { setContext } from "@apollo/client/link/context";
 
-import { withClientState } from "apollo-link-state";
 import jwtDecode from "jwt-decode";
 
 const cache = new InMemoryCache();

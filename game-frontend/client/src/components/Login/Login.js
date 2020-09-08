@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 const Login = (props) => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
-  const client = useApolloClient();
+  
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: "",
     password: "",

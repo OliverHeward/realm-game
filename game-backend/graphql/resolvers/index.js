@@ -3,7 +3,7 @@ const postResolvers = require('./posts');
 const commentsResolvers = require('./comments');
 const inventoryResolvers = require('./inventory');
 const missionResolvers = require('./missions');
-
+const equipmentResolvers = require('./equipment');
 
 
 module.exports = {
@@ -14,6 +14,7 @@ module.exports = {
     Query: {
         ...postResolvers.Query,
         ...inventoryResolvers.Query,
+        ...equipmentResolvers.Query,
         ...userResolvers.Query,
         ...missionResolvers.Query
     },

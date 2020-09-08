@@ -1,7 +1,5 @@
 import React from "react";
 import Login from "../components/Login/Login";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 
 const Home = () => {
   // data destruct getPosts and alias ->

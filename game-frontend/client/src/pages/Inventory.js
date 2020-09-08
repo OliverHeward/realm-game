@@ -1,50 +1,29 @@
-import React, { useContext, useState } from "react";
-import { useQuery, gql } from "@apollo/react-hooks";
-import { AuthContext } from "../context/auth";
+import React, { useState } from "react";
 
 import Backpack from "../containers/Inventory/Backpack";
 import Equipment from "../containers/Inventory/Equipment";
 import Resources from "../containers/Inventory/Resources";
 import Bank from "../containers/Inventory/Bank";
+import InventoryNav from "../components/InventoryNav/InventoryNav";
 
-const FETCH_INVENTORY_QUERY = gql`
-  query getInvent($userId: ID!) {
-    getInventory(userInventId: $userId) {
-      currency {
-        gold
-        ether
-        tokens
-      } 
-      resources {
-        wood
-        stone
-        gems
-      }
-    }
-  }
-`;
 
 const Inventory = () => {
   const [activeTab, setActiveTab] = useState();
-  const { user } = useContext(AuthContext);
-  const { loading, error, data } = useQuery(FETCH_INVENTORY_QUERY, {
-    variables: {
-      userId: user.id,
-    },
-  });
-  const handleTabbing = (event) => {
-    switch (event.target.id) {
-      case "Backpack":
+  const handleTabbing = (id) => {
+    switch (id) {
+      case "backpack":
         setActiveTab(<Backpack />);
         break;
-      case "Equipment":
+      case "equipment":
         setActiveTab(<Equipment />);
         break;
-      case "Resources":
+      case "resources":
         setActiveTab(<Resources />);
         break;
-      case "Bank":
+      case "bank":
         setActiveTab(<Bank />);
+        break;
+      default: 
         break;
     }
   };
@@ -52,20 +31,7 @@ const Inventory = () => {
   return (
     <div className="inventory-page">
       <h1>Inventory</h1>
-      <ul>
-        <li onClick={handleTabbing} id="Backpack">
-          Backpack
-        </li>
-        <li onClick={handleTabbing} id="Equipment">
-          Equipment
-        </li>
-        <li onClick={handleTabbing} id="Resources">
-          Resources
-        </li>
-        <li onClick={handleTabbing} id="Bank">
-          Bank
-        </li>
-      </ul>
+      <InventoryNav click={handleTabbing} />
       <div className="inventory-active">{activeTab}</div>
     </div>
   );

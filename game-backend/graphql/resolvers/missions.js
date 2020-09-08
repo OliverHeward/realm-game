@@ -1,6 +1,5 @@
 const Mission = require("../../models/Mission");
 const checkAuth = require("../../utils/check-auth");
-const { AuthenticationError, UserInputError } = require("apollo-server");
 const MissionUser = require("../../models/MissionUser");
 const Invent = require("../../models/Inventory");
 
@@ -9,10 +8,8 @@ module.exports = {
         getMissions: async () => {
             try {
                 const missions = await Mission.find();
-                console.log(missions);
                 return missions;
             } catch (err) {
-                console.log('failed');
                 throw new Error(err);
             }
         },

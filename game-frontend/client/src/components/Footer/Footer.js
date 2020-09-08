@@ -13,10 +13,10 @@ const Footer = () => {
       <div className="lower-container">
         <span className="powered-by">Powered By</span>
         <div className="logo-container">
-          <img src={logo} className="footer-logo" />
-          <img src={graphLogo} className="footer-logo" />
-          <img src={nodeLogo} className="footer-logo" />
-          <img src={mongoLogo} className="footer-logo" />
+          <img src={logo} alt="React Logo" className="footer-logo" />
+          <img src={graphLogo} alt="GraphQL Logo" className="footer-logo" />
+          <img src={nodeLogo} alt="NodeJS Logo" className="footer-logo" />
+          <img src={mongoLogo} alt="MongoDB Logo" className="footer-logo" />
         </div>
       </div>
     </footer>
