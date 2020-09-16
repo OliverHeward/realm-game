@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Runes from "../PouchItem/Runes";
 import { AuthContext } from "../../../context/auth";
-import Aux from "../../../hoc/Layout/Aux";
+import Aux from "../../../hoc/Aux";
 
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";

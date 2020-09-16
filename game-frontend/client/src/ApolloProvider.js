@@ -46,7 +46,12 @@ const authLink = setContext(() => {
 const client = new ApolloClient({
   cache,
   link: authLink.concat(httpLink),
+  connectToDevTools: true,
   resolvers: {},
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  }
 });
 
 export default (

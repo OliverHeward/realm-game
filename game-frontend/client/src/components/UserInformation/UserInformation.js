@@ -15,7 +15,7 @@ const UserInformation = (props) => {
   return (
     <div className="user-panel">
       <span className="level">{userObject.username}</span>
-      <span className="level">Level: 15</span>
+      <span className="level">Level: {userObject.combat_level}</span>
     </div>
   );
 };

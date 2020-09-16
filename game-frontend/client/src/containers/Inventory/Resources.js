@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery, useApolloClient } from "@apollo/client";
-import Aux from "../../hoc/Layout/Aux";
+import Aux from "../../hoc/Aux";
 
 const FETCH_RESOURCES = gql`
   query getInvent($userId: ID!) {

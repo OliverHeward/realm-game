@@ -17,9 +17,11 @@ function generateToken(user) {
       id: user.id,
       email: user.email,
       username: user.username,
+      combat_level: user.combat_level,
+      experience: user.experience,
     },
     SECRET_KEY,
-    { expiresIn: "1h" }
+    { expiresIn: "3h" }
   );
 }
 
@@ -104,7 +106,23 @@ module.exports = {
         email,
         username,
         password,
+        combat_level: 1,
+        experience: 0,
         createdAt: new Date().toISOString(),
+        mission_data: {
+          is_on_mission: false,
+          mission_id: "",
+          mission_start_time: "",
+          mission_end_time: "",
+          missions_completed: [],
+        },
+        quest_data: {
+          is_on_quest: false,
+          quest_id: "",
+          quest_start_time: String,
+          quest_end_time: String,
+          quests_completed: []
+        }
       });
 
       const res = await newUser.save();

@@ -28,7 +28,31 @@ module.exports = gql`
     email: String!
     token: String!
     username: String!
+    combat_level: Int!
+    experience: Int!
     createdAt: String!
+    mission_data: MissionData
+    quest_data: QuestData
+  }
+  type MissionData {
+    is_on_mission: Boolean
+    mission_id: String
+    mission_start_time: String
+    mission_end_time: String
+    missions_completed: [CompletedMission]
+  }
+  type QuestData {
+    is_on_quest: Boolean
+    quest_id: String
+    quest_start_time: String
+    quest_end_time: String
+    quests_completed: [CompletedQuest]
+  }
+  type CompletedMission {
+    mission_id: String
+  }
+  type CompletedQuest {
+    quest_id: String
   }
   type Inventory {
     id: ID!
@@ -109,7 +133,7 @@ module.exports = gql`
     id: ID!
     mission_title: String!
     mission_level: String!
-    mission_time: String!
+    mission_time: Int!
     mission_description: String!
     mission_attack_style: String
     recommended_armour_type: String
@@ -119,12 +143,12 @@ module.exports = gql`
   }
 
   type MissionUser {
-    id: ID!
+    user: String!
     user_combat_level: Int!
     mission_started_time: String
     mission_end_time: String
     mission_time_remaining: String
-    user_stats: [UserStat]
+    user_stats: UserStat
   }
 
   type UserStat {
@@ -172,5 +196,11 @@ module.exports = gql`
     createComment(postId: String!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
+    startMission(userInventId: String, missionId: String): Mission
+    handleMissionComplete(
+      finishedMission: Boolean
+      userInventId: String
+      missionId: String
+    ): Mission
   }
 `;

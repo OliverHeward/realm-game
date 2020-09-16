@@ -24,6 +24,22 @@ const FETCH_MISSIONS_QUERY = gql`
         }
         experience
       }
+      users_on_mission {
+        user
+        user_combat_level
+        mission_started_time
+        mission_end_time
+        mission_time_remaining
+        user_stats {
+          attack
+          ranged_attack
+          magic_attack
+          defence
+          hitpoints
+          ranged_defence
+          magic_defence
+        }
+      }
     }
   }
 `;
@@ -32,7 +48,7 @@ const Missions = (props) => {
   const { loading, error, data } = useQuery(FETCH_MISSIONS_QUERY);
 
   if (!loading) {
-    // console.log(data);
+    console.log(data);
   }
   return (
     <div>
@@ -44,7 +60,9 @@ const Missions = (props) => {
       </p>
       {!loading
         ? data.getMissions &&
-          data.getMissions.map((mission) => <Mission {...mission} key={mission.id} />)
+          data.getMissions.map((mission) => (
+            <Mission {...mission} key={mission.id} />
+          ))
         : null}
     </div>
   );

@@ -252,34 +252,95 @@ div.mission-tab {
   justify-content: center;
   transition: all 0.2s ease-in-out;
   flex-flow: row wrap;
+  position: relative;
   &:hover {
     transform: scale(1.01);
   }
-  div.mission-text,
-  div.mission-meta,
-  div.mission-rewards,
-  div.mission-info {
-    width: 50%;
-  }
-  div.mission-text {
-    .mission-title {
-      margin: 0;
+
+  // initial text screen
+  div.mission-screen {
+    width: 100%;
+    height: 100%;
+    div.mission-text-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: row wrap;
+
+      div.mission-text,
+      div.mission-meta,
+      div.mission-rewards,
+      div.mission-info {
+        width: 50%;
+      }
+      div.mission-text {
+        .mission-title {
+          margin: 0;
+        }
+      }
+      div.mission-meta {
+        p {
+          margin: 0;
+        }
+      }
+
+      div.mission-rewards {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+      }
+
+      div.mission-info {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+    }
+    button.start-mission {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      background: #61dafb;
+      box-shadow: unset;
+      border: unset;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      font-weight: bold;
+      &:hover {
+        background: #9b5fea;
+      }
     }
   }
-  div.mission-meta {
-    p {
-      margin: 0;
+  div.mission-start-screen {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    div.mission-start-container {
+      
+      button {
+        box-shadow: unset;
+        border: unset;
+        font-weight: bold;
+        border-radius: 6px;
+        padding: 8px 12px;
+        cursor: pointer;
+        &.cancel {
+          background-color: red;
+        }
+        &.continue {
+          background-color: green;
+        }
+        &:first-of-type {
+          margin-right: 15px;
+        }
+      }
     }
-  }
-
-  div.mission-rewards {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-  }
-
-  div.mission-info {
-    display: flex;
-    flex-flow: column nowrap;
   }
 }

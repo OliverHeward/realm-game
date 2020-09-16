@@ -9,7 +9,7 @@ MongoClient.connect(url, (err, db) => {
     {
       mission_title: "Mission",
       mission_level: "1",
-      mission_time: "10",
+      mission_time: 10,
       mission_description: "this is a mission description",
       mission_attack_style: "Melee",
       recommended_armour_type: "Melee",
@@ -27,7 +27,7 @@ MongoClient.connect(url, (err, db) => {
     {
       mission_title: "Mission 2",
       mission_level: "2",
-      mission_time: "15",
+      mission_time: 15,
       mission_description: "this is a mission description 2",
       mission_attack_style: "Magic",
       recommended_armour_type: "Ranged",

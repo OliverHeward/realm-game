@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
-import Aux from './Aux';
+import Aux from '../Aux';
 
 const Layout = props => {
     return (
