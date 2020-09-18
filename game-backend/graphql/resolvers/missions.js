@@ -83,9 +83,6 @@ module.exports = {
           ranged_attack: user_stats.ranged_attack,
           magic_attack: user_stats.magic_attack,
         };
-        var user_hitpoints = {
-          hitpoints: user_stats.hitpoints,
-        };
 
         // HANDLE USER STYLES
         var user_defence_type;
@@ -124,29 +121,8 @@ module.exports = {
         ) {
           user_attack_type = "Ranged";
         }
-        function getNumbers(string){
-          string = string.split(" ");
-          var int = ""; 
-        for(var i=0;i<string.length;i++){
-            if(isNaN(string[i])==false){
-            int+=string[i];
-            }
-        }
-        return parseInt(int);
-      }
-        console.log({
-          user_defence_type: user_defence_type,
-          m_recommend_attack_style: m_recommend_attack_style,
-          m_recommended_armour_type: m_recommended_armour_type,
-          user_attack_type: user_attack_type,
-          m_level: getNumbers(m_level),
-          user_combat_level: user_combat_level,
+        //! hotfix for string issue
 
-          user: user,
-          invent: invent,
-          mission: mission.mission_rewards,
-        })
-        m_level = getNumbers(m_level)
         let result = false;
         // HANDLE SUCCESS
         if (
@@ -155,74 +131,172 @@ module.exports = {
           user_attack_type === m_recommend_attack_style
         ) {
           result = probability(1);
-          console.log('1');
-
+          console.log("1");
         } else if (
           user_defence_type !== m_recommended_armour_type &&
           m_level <= user_combat_level &&
           user_attack_type === m_recommend_attack_style
         ) {
           // If user has incorrect armour but correct attack style and the mission is their level or lower
-          result = probability(.7);
-
+          result = probability(0.7);
         } else if (
           user_defence_type === m_recommended_armour_type &&
           m_level <= user_combat_level &&
-          user_attack_type !== m_recommend_attack_style 
+          user_attack_type !== m_recommend_attack_style
         ) {
           // If user has incorrcet attack but correct armour type and the mission is their level or lower
-          result = probability(.7);
-
+          result = probability(0.7);
+          console.log("should call on this [handle-success] statement");
         } else if (
           user_defence_type !== m_recommended_armour_type &&
           m_level <= user_combat_level &&
           user_attack_type !== m_recommend_attack_style
         ) {
           // If user has incorrect attack and armour type and the mission is their level or lower
-          console.log('4');
+          console.log("4");
+          result = probability(0.8);
 
         } else if (
           user_defence_type !== m_recommended_armour_type &&
           m_level > user_combat_level &&
           user_attack_type !== m_recommend_attack_style
         ) {
-          // If the mission is level is greater and user has incorrect attack and armour 
-          console.log('5');
+          // If the mission is level is greater and user has incorrect attack and armour
+          console.log("5");
         } else if (
           user_defence_type === m_recommended_armour_type &&
           m_level > user_combat_level &&
           user_attack_type === m_recommend_attack_style
         ) {
-         // if the mission is higher level than the user but they have the correct armour types
-         console.log('6');
+          // if the mission is higher level than the user but they have the correct armour types
+          console.log("6");
         }
 
         // If probability result = true
-        if(result) {
-          // grant user experience && rewards
+        if (result) {
+          console.log("user has successfully completed mission");
           // move mission id into completed missions
-
-
-          // User Object 
-          // TODO: set mission_data is_on_mission - false
-          // TODO: remove mission_start & mission_end time
           // TODO: move mission_id into missions_completed
+          /**********************
+           *  Mission Rewards
+           *********************/
+          if (mission.mission_rewards.currency) {
+            var user_currency = invent.currency;
+            typeof(user_currency.tokens);
+            if(typeof(user_currency.tokens) === NaN) {
+              console.log("nan")
+            } else if (typeof(user_currency.tokens === undefined)) {
+              console.log('token is undefined')
+            }
+            var reward_currency = mission.mission_rewards.currency;
+            Object.assign(user_currency, {
+              gold: parseInt(user_currency.gold + reward_currency.gold),
+              ether: parseInt(user_currency.ether + reward_currency.ether),
+              tokens: parseInt(user_currency.token + 0)
+            });
+
+            invent.currency.set({
+              ...user_currency
+            })
+          }
+
+          // If there are items to be awarded
+          if (mission.mission_rewards.items) {
+            // Map each item
+            mission.mission_rewards.items.map((item) => {
+              // Spread each item into equipment
+              invent.backpack.equipment.shift({
+                ...item,
+              });
+            });
+          }
+
+          // if mission has experience (which it should)
+          if (mission.mission_rewards.experience) {
+            // pass experience gain to user object
+            user.set({
+              experience: parseInt(
+                user.experience + mission.mission_rewards.experience
+              ),
+            });
+          }
+
+          /****************************
+           * Update User Mission Object
+           ***************************/
+          const user_mission_update = {
+            "mission_data.is_on_mission": false,
+            "mission_data.mission_id": "",
+            "mission_data.mission_start_time": "",
+            "mission_data.mission_end_time": "",
+          };
+
+          user.set({ ...user_mission_update });
+
+          /*********************************
+           * Add Completed Mission To User
+           ********************************/
+          user.mission_data.missions_completed.unshift({
+            mission_id: missionId,
+          });
 
 
-          // Mission Object
-          // TODO: take mission_rewards
-          // TODO: pass all currency(gold, ether, tokens) - experience and items
-          // TODO: add them too User & Invent Object
-
-          // User Object
-
-          
+          await invent.save();
+          await user.save();
+          return user, invent;
         } else {
-          // else if the user failed
+          console.log("user has not completed mission");
+          /*********************
+           * Failed Mission
+           ********************/
+
           // failed mission, remove mission from user object
           // take some Hitpoints away from total hitpoints level (will need remodelling for current and base hitpoints)
-        }
 
+          /*********
+           *
+           * hitpoints - represents current health
+           * base_hitpoints - represents base total health
+           *
+           *
+           * on a small probability, allow mission to take Gold from you too
+           *
+           */
+          const getRandomInt = (maxInt) => {
+            return Math.floor(Math.random() * Math.floor(maxInt));
+          };
+
+          let damage_chance = probability(0.1);
+          if (damage_chance) {
+            // take between 1 - 20% of health
+            let damageInt = getRandomInt(20);
+            let user_base_hitpoints = user.base_hitpoints;
+
+            // Calculate percentage of health taken
+            let damage_taken = (user_base_hitpoints / 100) * damageInt;
+
+            // Damage users current_hitpoints
+            user.set({
+              current_hitpoints: parseInt(
+                user.current_hitpoints - damage_taken
+              ),
+            });
+          }
+
+          /***************************
+           * Remove Mission From User
+           **************************/
+
+          const user_mission_update = {
+            "mission_data.is_on_mission": false,
+            "mission_data.mission_id": "",
+            "mission_data.mission_start_time": "",
+            "mission_data.mission_end_time": "",
+          };
+          user.mission_data.set({ ...user_mission_update });
+          await user.save()
+          return user;
+        }
       }
     },
   },

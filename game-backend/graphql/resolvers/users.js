@@ -108,6 +108,8 @@ module.exports = {
         password,
         combat_level: 1,
         experience: 0,
+        base_hitpoints: 100,
+        current_hitpoints: 100,
         createdAt: new Date().toISOString(),
         mission_data: {
           is_on_mission: false,
@@ -238,7 +240,7 @@ module.exports = {
             ranged_attack: 0,
             magic_attack: 0,
             defence: 2,
-            hitpoints: 100,
+            hitpoints: 0,
             ranged_defence: 0,
             magic_defence: 2,
           },

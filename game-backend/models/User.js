@@ -7,6 +7,8 @@ const userSchema = new Schema(
     password: String,
     combat_level: Number,
     experience: Number,
+    base_hitpoints: Number,
+    current_hitpoints: Number,
     createdAt: String,
     mission_data: {
       is_on_mission: Boolean,

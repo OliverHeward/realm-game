@@ -16,6 +16,7 @@ const FETCH_MISSIONS_QUERY = gql`
       mission_attack_style
       recommended_armour_type
       recommended_attack_style
+      mission_image_url
       mission_rewards {
         currency {
           gold
@@ -23,22 +24,6 @@ const FETCH_MISSIONS_QUERY = gql`
           tokens
         }
         experience
-      }
-      users_on_mission {
-        user
-        user_combat_level
-        mission_started_time
-        mission_end_time
-        mission_time_remaining
-        user_stats {
-          attack
-          ranged_attack
-          magic_attack
-          defence
-          hitpoints
-          ranged_defence
-          magic_defence
-        }
       }
     }
   }
@@ -58,12 +43,14 @@ const Missions = (props) => {
         Welcome to the missions page, soon this will have some missions to be
         done.
       </p>
+      <div className="missions">
       {!loading
         ? data.getMissions &&
           data.getMissions.map((mission) => (
             <Mission {...mission} key={mission.id} />
           ))
         : null}
+      </div>
     </div>
   );
 };

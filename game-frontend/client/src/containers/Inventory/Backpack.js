@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../context/auth";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, gql, useApolloClient } from "@apollo/react-hooks";
 import "./Inventory.scss";
-import gql from "graphql-tag";
 
 const FETCH_INVENTORY_QUERY = gql`
   query getInvent($userId: ID!) {
@@ -36,11 +34,18 @@ const FETCH_INVENTORY_QUERY = gql`
 `;
 
 const Backpack = () => {
-  const { user } = useContext(AuthContext);
+  const client = useApolloClient();
+  const {userObject} = client.readQuery({
+    query: gql`
+      query User {
+        userObject @client
+      }
+    `
+  })
   const { loading, data, error } = useQuery(FETCH_INVENTORY_QUERY, {
     fetchPolicy: "cache-first",
     variables: {
-      userId: user.id,
+      userId: userObject.id,
     },
   });
 
@@ -58,11 +63,6 @@ const Backpack = () => {
         backpack.push(item);
       });
   }
-
-  // // Check backpack is not empty first (due to query)
-  // if (backpack.length >= 1) {
-  //   console.log(backpack);
-  // }
 
   return (
     <div>

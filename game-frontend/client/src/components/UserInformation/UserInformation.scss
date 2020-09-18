@@ -1,6 +1,14 @@
-.user-panel {
+div.user-data {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-flow: column wrap;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    div.user-stats, div.user-hitpoints {
+        width: 50%;
+    }
+    div.user-stats {
+        display: flex;
+        flex-flow: column nowrap;
+    }
 }

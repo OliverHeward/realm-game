@@ -52,9 +52,9 @@ const OnMission = (props) => {
 
   let completeMission = (
     <div className="mission-complete">
-      <p>Mission is now complete</p>
+      <h3 className="complete-title">Mission Complete</h3>
       <button type="button" onClick={handleComplete}>
-        Hand In Mission
+        Complete
       </button>
     </div>
   );
@@ -73,7 +73,18 @@ const OnMission = (props) => {
   var missionStatus =
     minutesRemaining > props.mission_time ? completeMission : missionInProgress;
 
-  return <div>{missionStatus}</div>;
+  let image = require(`../../../assets/images/mission_images/${props.mission_image_url}`);
+
+  return (
+    <div
+      className="mission-started"
+      style={{
+        backgroundImage: `linear-gradient(145deg, rgb(0 0 0 / 49%), rgb(31 3 9 / 31%)), url(${image})`,
+      }}
+    >
+      {missionStatus}
+    </div>
+  );
 };
 
 export default OnMission;

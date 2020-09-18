@@ -30,6 +30,8 @@ module.exports = gql`
     username: String!
     combat_level: Int!
     experience: Int!
+    base_hitpoints: Int!
+    current_hitpoints: Int!
     createdAt: String!
     mission_data: MissionData
     quest_data: QuestData
@@ -132,25 +134,16 @@ module.exports = gql`
   type Mission {
     id: ID!
     mission_title: String!
-    mission_level: String!
+    mission_level: Int!
     mission_time: Int!
     mission_description: String!
+    mission_image_url: String!
     mission_attack_style: String
     recommended_armour_type: String
     recommended_attack_style: String
     mission_rewards: Rewards
-    users_on_mission: [MissionUser]
   }
-
-  type MissionUser {
-    user: String!
-    user_combat_level: Int!
-    mission_started_time: String
-    mission_end_time: String
-    mission_time_remaining: String
-    user_stats: UserStat
-  }
-
+  
   type UserStat {
     attack: Int
     ranged_attack: Int

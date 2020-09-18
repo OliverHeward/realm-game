@@ -5,6 +5,11 @@ import Moment from "react-moment";
 import { gql, useQuery, useApolloClient, useMutation } from "@apollo/client";
 import OnMission from "./OnMission/OnMission";
 
+import AttackStyle from "./MissionIcons/AttackStyle";
+import DefenceStyle from "./MissionIcons/DefenceStyle";
+import CurrencyReward from "./MissionIcons/CurrencyReward";
+
+
 const FETCH_USER = gql`
   query GetUsers($username: String!) {
     getUsers(userName: $username) {
@@ -40,6 +45,7 @@ const Mission = (props) => {
     mission_attack_style,
     recommended_attack_style,
     recommended_armour_type,
+    mission_image_url
   } = props;
 
   const [startScreen, setStartScreen] = useState(false);
@@ -85,17 +91,15 @@ const Mission = (props) => {
     var end = new Date(e);
     var diff = (start.getTime() - end.getTime()) / 1000;
     diff /= 60;
-    return Math.abs(Math.round(diff))
-  }
+    return Math.abs(Math.round(diff));
+  };
   let matchMission;
-  if(!loading) {
-    if(data.getUsers.mission_data.is_on_mission) {
+  if (!loading) {
+    if (data.getUsers.mission_data.is_on_mission) {
       let mission_id = data.getUsers.mission_data.mission_id;
 
-      if(id === mission_id) {
-        matchMission = (
-          <div>On This Mission</div>
-        )
+      if (id === mission_id) {
+        matchMission = <div>On This Mission</div>;
       }
     }
   }
@@ -114,55 +118,61 @@ const Mission = (props) => {
     </div>
   ) : null;
 
+  let image = require(`../../assets/images/mission_images/${mission_image_url}`);
+
   return (
     <div className="mission-tab">
       {!matchMission ? (
         <Aux>
-          <div className="mission-screen">
-            <div className="mission-text-tab">
-              <div className="mission-text">
-                <h3 className="mission-title">{mission_title}</h3>
-                <p>{mission_description}</p>
+          <div
+            className="mission-screen"
+            style={{ backgroundImage: `url(${image})` }}
+            onClick={popStart}
+          >
+            <div className="mission-meta">
+              <p className="mission-meta-inner">
+                Level <span>{mission_level}</span>
+              </p>
+              <p className="mission-meta-inner">
+                Experience <span>{mission_rewards.experience}xp</span>
+              </p>
+              <p className="mission-meta-inner">
+                Time <span>{mission_time}min</span>
+              </p>
+            </div>
+            <div className="mission-text">
+              <h3 className="mission-title">{mission_title}</h3>
+              <p>{mission_description}</p>
+            </div>
+            <div className="mission-info">
+              <div className="mission-attack-style">
+                <p>Mission Attack Style</p>
+                <AttackStyle mission={mission_attack_style} />
               </div>
-              <div className="mission-meta">
-                <p className="mission-level">Mission Level: {mission_level}</p>
-                <p className="mission-time">Mission Time: {mission_time}</p>
+              <div className="recommended-info">
+                <p>Recommended Styles</p>
+                <div className="mission-recommended-styles">
+                  <DefenceStyle mission={recommended_armour_type} />
+                  <AttackStyle mission={recommended_attack_style} />
+                </div>
               </div>
-              <div className="mission-rewards">
-                <span className="gold-reward">
-                  Gold: {mission_rewards.currency.gold}
-                </span>
-                <span className="ether-reward">
-                  Ether: {mission_rewards.currency.ether}
-                </span>
-                {mission_rewards.currency.token ? (
-                  <span className="token-reward">
-                    Tokens:
-                    {mission_rewards.currency.tokens}
-                  </span>
-                ) : null}
-                <span className="experience-reward">
-                  Experience: {mission_rewards.experience}
-                </span>
-              </div>
-              <div className="mission-info">
-                <span className="mission-attack-style">
-                  Mission attack style:
-                  {mission_attack_style}
-                </span>
-                <span className="recommended-armour-type">
-                  Recommended armour type:
-                  {recommended_armour_type}
-                </span>
-                <span className="recommended-attack-style">
-                  Recommended attack style:
-                  {recommended_attack_style}
-                </span>
+              <div className="rewards-info">
+                <p>Mission Rewards</p>
+                <div className="mission-rewards">
+                  {Object.entries(mission_rewards.currency).map(
+                    ([key, value]) => (
+                      key !== "__typename" ? (
+                        <CurrencyReward
+                          currency={key}
+                          reward={value}
+                          key={key}
+                        />
+                      ) : null
+                    ))
+                  }
+                </div>
               </div>
             </div>
-            <button type="button" className="start-mission" onClick={popStart}>
-              Start Mission
-            </button>
           </div>
           {startMissionScreen}
         </Aux>

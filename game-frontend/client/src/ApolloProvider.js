@@ -17,31 +17,13 @@ const httpLink = createHttpLink({
 const authLink = setContext(() => {
   const token = localStorage.getItem("jwtToken");
 
-  if (token) {
-    const IS_LOGGED_IN = gql`
-      query User {
-        userLoggedIn @client
-        userId @client
-        userObject @client
-      }
-    `;
-
-    client.writeQuery({
-      query: IS_LOGGED_IN,
-      data: {
-        userLoggedIn: !!localStorage.getItem("jwtToken"),
-        userId: jwtDecode(localStorage.getItem("jwtToken")).id,
-        userObject: jwtDecode(localStorage.getItem("jwtToken")),
-      },
-    });
-  }
-
   return {
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
+
 
 const client = new ApolloClient({
   cache,

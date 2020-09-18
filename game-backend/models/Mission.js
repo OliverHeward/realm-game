@@ -3,12 +3,13 @@ const { model, Schema } = require("mongoose");
 const missionSchema = new Schema(
   {
     mission_title: String,
-    mission_level: String,
+    mission_level: Number,
     mission_time: Number,
     mission_description: String,
     mission_attack_style: String,
     recommended_armour_type: String,
     recommended_attack_style: String,
+    mission_image_url: String,
     mission_rewards: {
       currency: {
         gold: Number,
@@ -37,24 +38,7 @@ const missionSchema = new Schema(
         },
       ],
     },
-    users_on_mission: [
-      {
-        user: String,
-        user_combat_level: Number,
-        mission_started_time: String,
-        mission_end_time: String,
-        mission_time_remaining: String,
-        user_stats: {
-          attack: Number,
-          ranged_attack: Number,
-          magic_attack: Number,
-          defence: Number,
-          hitpoints: Number,
-          ranged_defence: Number,
-          magic_defence: Number,
-        },
-      },
-    ],
+
   },
   { collection: "missions" }
 );

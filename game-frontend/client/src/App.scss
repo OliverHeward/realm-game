@@ -1,3 +1,15 @@
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
 /*********** 
   RESET
 ***********/
@@ -10,7 +22,7 @@ ol {
 
 html,
 body {
-  background-color: #2e2d2e !important;
+  background-color: #282c34 !important;
   color: white;
 }
 
@@ -97,35 +109,54 @@ div.homepage-content-wrap {
 /*********** 
   Dashboard
 ***********/
-
+div.hot-menu-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+}
 ul.dash-hot-menu {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: row wrap;
-  li {
-    padding: 3px 9px;
-    margin: 0px 1px;
-    background-color: #61dafb;
-  }
-}
-
-.hot-menu-wrap {
-  margin-top: 20px;
+  width: 100%;
   .tile-link-wrap {
-    width: 50%;
-    height: 150px;
-    margin: 15px auto;
-    .tile {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 10px auto;
+    border-radius: 6px;
+    box-sizing: border-box;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    h3.tile-title {
+      position: absolute;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 15%,
+        rgba(0, 0, 0, 0.1) 20%,
+        rgba(0, 0, 0, 0.8) 100%
+      );
       width: 100%;
-      height: 100%;
-      background: #585858;
+      text-align: right;
+      padding: 5px 10px;
+      text-transform: uppercase;
       color: white;
-      box-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
-      display: flex;
-      text-align: center;
-      justify-content: center;
-      align-items: center;
+      font-size: 2rem;
+      letter-spacing: 8px;
+    }
+  }
+  @include tablet {
+    .tile-link-wrap {
+      width: 49%;
+      height: 250px;
+
+      h3.tile-title {
+        font-size: 2.2rem;
+      }
     }
   }
 }
@@ -235,79 +266,144 @@ div.pouch-wrapper {
   }
 }
 
+div.missions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
 /***************
 MISSION TAB
 ***************/
 
 div.mission-tab {
-  background: #585858;
+  background: #1f1f1f;
+  width: 100%;
   cursor: pointer;
   border-radius: 6px;
-  margin: 15px auto;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  padding: 5px 8px;
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  margin: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
   flex-flow: row wrap;
   position: relative;
+  min-height: 300px;
+  @include tablet {
+    width: 49%;
+    max-width: 400px;
+  }
   &:hover {
     transform: scale(1.01);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
   }
-
   // initial text screen
   div.mission-screen {
+    border-radius: 6px;
     width: 100%;
     height: 100%;
-    div.mission-text-tab {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 300px;
+    overflow: hidden;
+    div.mission-meta {
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-flow: row wrap;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 3px 20px 8px;
+      p {
+        margin: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        color: #a1a1a1;
+        font-size: 0.8rem;
+        span {
+          font-size: 1rem;
+          color: #fff;
+        }
+        &.last-of-type {
+          text-align: right;
+        }
+      }
+    }
+
+    div.mission-text {
+      height: 100%;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-flow: row wrap;
-
-      div.mission-text,
-      div.mission-meta,
-      div.mission-rewards,
-      div.mission-info {
-        width: 50%;
+      flex-flow: column nowrap;
+      margin-bottom: 40px;
+      padding: 0 20px;
+      h3 {
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        max-width: 400px;
+        text-shadow: 0 0 3px #000;
       }
-      div.mission-text {
-        .mission-title {
-          margin: 0;
-        }
-      }
-      div.mission-meta {
-        p {
-          margin: 0;
-        }
-      }
-
-      div.mission-rewards {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: space-between;
-      }
-
-      div.mission-info {
-        display: flex;
-        flex-flow: column nowrap;
+      p {
+        max-width: 375px;
+        font-size: 0.8rem;
+        text-shadow: 0 0 3px #000;
       }
     }
-    button.start-mission {
+
+    img.defence-style-icon,
+    img.attack-style-icon {
+      max-width: 40px;
+      border-radius: 3px;
+      opacity: 0.7;
+    }
+
+    div.mission-info {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      padding: 5px 20px 0px;
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      bottom: 0;
       width: 100%;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-top: 15px;
-      background: #61dafb;
-      box-shadow: unset;
-      border: unset;
-      cursor: pointer;
-      transition: all .3s ease-in-out;
-      font-weight: bold;
-      &:hover {
-        background: #9b5fea;
+      p {
+        margin: 0;
+        margin-bottom: 5px;
+        font-size: 0.8rem;
+        color: #a1a1a1;
+      }
+      div.recommended-info {
+        div.mission-recommended-styles {
+          display: flex;
+          flex-flow: row nowrap;
+          div {
+            margin: 5px;
+          }
+        }
+      }
+      div.rewards-info {
+        display: flex;
+        flex-flow: column nowrap;
+        div.mission-rewards {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: flex-start;
+          img {
+            max-width: 20px;
+            border-radius: 3px;
+            margin: 3px;
+            opacity: 0.7;
+          }
+        }
       }
     }
   }
@@ -320,26 +416,60 @@ div.mission-tab {
     justify-content: center;
     flex-flow: column nowrap;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     text-align: center;
     div.mission-start-container {
-      
       button {
         box-shadow: unset;
         border: unset;
-        font-weight: bold;
         border-radius: 6px;
         padding: 8px 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #2e2d2e;
+
         cursor: pointer;
         &.cancel {
-          background-color: red;
+          background: linear-gradient(65deg, #a1051d 0%, #f15b68 100%);
         }
         &.continue {
-          background-color: green;
+          background: linear-gradient(65deg, #2a5525 0%, #0fdf62 100%);
         }
         &:first-of-type {
           margin-right: 15px;
         }
+      }
+    }
+  }
+  div.mission-started {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    // filter: grayscale(75%);
+    background-blend-mode: darken;
+    div.mission-complete {
+      button {
+        background: transparent;
+        border: unset;
+        padding: 10px 24px;
+        border-radius: 14px;
+        background: linear-gradient(
+          to right top,
+          #fab823,
+          #f9a315,
+          #f68d0c,
+          #f3770d,
+          #ee5f13
+        );
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+        letter-spacing: px;
       }
     }
   }

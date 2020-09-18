@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { AuthProvider, AuthContext } from "./context/auth";
 
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useApolloClient } from "@apollo/client";
+
+import jwtDecode from "jwt-decode";
 
 import AuthRoute from "./utils/AuthRoute";
 
@@ -22,19 +24,28 @@ import Account from "./pages/Account";
 import Inventory from "./pages/Inventory";
 
 function App() {
-  const IS_LOGGED_IN = gql`
-    query User {
-      userLoggedIn @client
-      userObject @client
-    }
-  `;
+  const client = useApolloClient();
 
-  const {data} = useQuery(IS_LOGGED_IN);
+  // ! This will need to change at some point or be tweaked but its here for a persistance reason for now when hotreloading the frontend
+  // Store decoded User token and cache in client
+  var token = localStorage.getItem("jwtToken");
+  if (token) {
+    const IS_LOGGED_IN = gql`
+      query User {
+        userLoggedIn @client
+        userId @client
+        userObject @client
+      }
+    `;
 
-  if (data) {
-    console.log("[data] logged in", data.userObject);
-  } else {
-    console.log("[data] not logged in", data);
+    client.writeQuery({
+      query: IS_LOGGED_IN,
+      data: {
+        userLoggedIn: !!localStorage.getItem("jwtToken"),
+        userId: jwtDecode(localStorage.getItem("jwtToken")).id,
+        userObject: jwtDecode(localStorage.getItem("jwtToken")),
+      },
+    });
   }
 
   return (
