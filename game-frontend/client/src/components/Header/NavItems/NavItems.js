@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 
 const NavItems = (props) => {
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
 
   const handleLogout = () => {
     logout();

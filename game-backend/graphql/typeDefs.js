@@ -172,7 +172,6 @@ module.exports = gql`
     email: String!
     confirmEmail: String!
   }
-
   type Query {
     getUsers(userName: String!): User
     getPosts: [Post]
@@ -189,11 +188,11 @@ module.exports = gql`
     createComment(postId: String!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
-    startMission(userInventId: String, missionId: String): Mission
+    startMission(userInventId: String, missionId: String): User
     handleMissionComplete(
       finishedMission: Boolean
       userInventId: String
       missionId: String
-    ): Mission
+    ): User
   }
 `;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { gql, useMutation } from "@apollo/react-hooks";
+import Moment from "react-moment";
 
 const HANDLE_MISSION_COMPLETE = gql`
   mutation handleMissionComplete(
@@ -14,12 +15,21 @@ const HANDLE_MISSION_COMPLETE = gql`
       missionId: $IDmission
     ) {
       id
+      current_hitpoints
+      base_hitpoints
+      combat_level
+      experience
+      mission_data {
+        is_on_mission
+        mission_id
+        mission_start_time
+        mission_end_time
+      }
     }
   }
 `;
 
 const OnMission = (props) => {
-  console.log(props);
   const [isComplete, setIsComplete] = useState(false);
 
   const minutesUntilComplete = (s, e) => {
@@ -30,7 +40,22 @@ const OnMission = (props) => {
     return Math.abs(Math.round(diff));
   };
 
-  console.log(Math.random());
+  function getTimeRemaining(endtime) {
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+    return {
+      total,
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
+  }
+
   // when user is on mission and there is still time remaining, show one type
   const [handleMissionComplete] = useMutation(HANDLE_MISSION_COMPLETE, {
     variables: {
@@ -38,8 +63,12 @@ const OnMission = (props) => {
       inventId: props.getUsers.id,
       IDmission: props.id,
     },
-    update(_, result) {
-      console.log("result", result);
+    update: (cache, { data }) => {
+      try {
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
     },
   });
 
@@ -62,14 +91,21 @@ const OnMission = (props) => {
   let missionInProgress = (
     <div className="mission-in-progress">
       <p>Mission is currently in progress</p>
+      <p>{getTimeRemaining(
+        new Date(props.getUsers.mission_data.mission_end_time)
+      ).minutes}min left</p>
     </div>
   );
+
   var dateNow = new Date();
 
   let minutesRemaining = minutesUntilComplete(
     dateNow,
     props.getUsers.mission_data.mission_end_time
   );
+
+  // TODO: missionStatus needs to take the minutesRemaining check that new Date().now() is <= mission_end_time
+ 
   var missionStatus =
     minutesRemaining > props.mission_time ? completeMission : missionInProgress;
 

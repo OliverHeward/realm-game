@@ -9,7 +9,6 @@ import AttackStyle from "./MissionIcons/AttackStyle";
 import DefenceStyle from "./MissionIcons/DefenceStyle";
 import CurrencyReward from "./MissionIcons/CurrencyReward";
 
-
 const FETCH_USER = gql`
   query GetUsers($username: String!) {
     getUsers(userName: $username) {
@@ -30,6 +29,14 @@ const ADD_USER_TO_MISSION = gql`
   mutation startMission($inventId: String, $IDmission: String) {
     startMission(userInventId: $inventId, missionId: $IDmission) {
       id
+      combat_level
+      experience
+      mission_data {
+        is_on_mission
+        mission_id
+        mission_start_time
+        mission_end_time
+      }
     }
   }
 `;
@@ -45,7 +52,7 @@ const Mission = (props) => {
     mission_attack_style,
     recommended_attack_style,
     recommended_armour_type,
-    mission_image_url
+    mission_image_url,
   } = props;
 
   const [startScreen, setStartScreen] = useState(false);
@@ -61,7 +68,7 @@ const Mission = (props) => {
   });
 
   const { loading, data, error } = useQuery(FETCH_USER, {
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-and-network",
     variables: {
       username: userObject.username,
     },
@@ -72,8 +79,12 @@ const Mission = (props) => {
       inventId: userObject.id,
       IDmission: id,
     },
-    update(_, result) {
-      console.log("[result]", result);
+    update: (cache, { data }) => {
+      try {
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
     },
   });
 
@@ -159,17 +170,13 @@ const Mission = (props) => {
               <div className="rewards-info">
                 <p>Mission Rewards</p>
                 <div className="mission-rewards">
-                  {Object.entries(mission_rewards.currency).map(
-                    ([key, value]) => (
-                      key !== "__typename" ? (
-                        <CurrencyReward
-                          currency={key}
-                          reward={value}
-                          key={key}
-                        />
-                      ) : null
-                    ))
-                  }
+                  {Object.entries(
+                    mission_rewards.currency
+                  ).map(([key, value]) =>
+                    key !== "__typename" ? (
+                      <CurrencyReward currency={key} reward={value} key={key} />
+                    ) : null
+                  )}
                 </div>
               </div>
             </div>

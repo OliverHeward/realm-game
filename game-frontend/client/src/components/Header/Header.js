@@ -1,22 +1,42 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import NavItems from "./NavItems/NavItems";
-import { AuthContext } from "../../context/auth";
-
+import { useApolloClient, gql } from "@apollo/react-hooks";
 import "./Header.scss";
+import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
+import DrawerToggle from "../Navigation/SideDrawer/DrawerToggle/DrawerToggle";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
-  const helloUser = user ? (
-    <span className="greetings">Welcome back... {user.username}</span>
-  ) : null;
+  const [sideDrawerOpen, setSideDrawerOpen] = useState();
+  const client = useApolloClient();
+
+  const { userObject } = client.readQuery({
+    query: gql`
+      query User {
+        userObject @client
+      }
+    `,
+  });
+
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerOpen(false);
+  };
+
+  const sideDrawerToggleHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  };
+
   return (
-    <div className="header">
-      <nav>
+    <header className="header">
+      <DrawerToggle clicked={sideDrawerToggleHandler} />
+      <nav className="desktop-only">
         <NavItems />
       </nav>
-      {helloUser}
-    </div>
+      <SideDrawer
+        open={sideDrawerOpen} 
+        closed={sideDrawerClosedHandler} 
+        user={userObject}
+        />
+    </header>
   );
 };
 

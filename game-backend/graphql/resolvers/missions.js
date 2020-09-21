@@ -121,13 +121,12 @@ module.exports = {
         ) {
           user_attack_type = "Ranged";
         }
-        //! hotfix for string issue
 
         let result = false;
         // HANDLE SUCCESS
         if (
           user_defence_type === m_recommended_armour_type &&
-          m_level < user_combat_level &&
+          m_level <= user_combat_level &&
           user_attack_type === m_recommend_attack_style
         ) {
           result = probability(1);
@@ -138,14 +137,14 @@ module.exports = {
           user_attack_type === m_recommend_attack_style
         ) {
           // If user has incorrect armour but correct attack style and the mission is their level or lower
-          result = probability(0.7);
+          result = probability(1);
         } else if (
           user_defence_type === m_recommended_armour_type &&
           m_level <= user_combat_level &&
           user_attack_type !== m_recommend_attack_style
         ) {
           // If user has incorrcet attack but correct armour type and the mission is their level or lower
-          result = probability(0.7);
+          result = probability(1);
           console.log("should call on this [handle-success] statement");
         } else if (
           user_defence_type !== m_recommended_armour_type &&
@@ -154,7 +153,7 @@ module.exports = {
         ) {
           // If user has incorrect attack and armour type and the mission is their level or lower
           console.log("4");
-          result = probability(0.8);
+          result = probability(1);
 
         } else if (
           user_defence_type !== m_recommended_armour_type &&
@@ -163,6 +162,7 @@ module.exports = {
         ) {
           // If the mission is level is greater and user has incorrect attack and armour
           console.log("5");
+          result = probability(1)
         } else if (
           user_defence_type === m_recommended_armour_type &&
           m_level > user_combat_level &&
@@ -170,6 +170,8 @@ module.exports = {
         ) {
           // if the mission is higher level than the user but they have the correct armour types
           console.log("6");
+          result = probability(1)
+
         }
 
         // If probability result = true
@@ -182,17 +184,10 @@ module.exports = {
            *********************/
           if (mission.mission_rewards.currency) {
             var user_currency = invent.currency;
-            typeof(user_currency.tokens);
-            if(typeof(user_currency.tokens) === NaN) {
-              console.log("nan")
-            } else if (typeof(user_currency.tokens === undefined)) {
-              console.log('token is undefined')
-            }
             var reward_currency = mission.mission_rewards.currency;
             Object.assign(user_currency, {
               gold: parseInt(user_currency.gold + reward_currency.gold),
               ether: parseInt(user_currency.ether + reward_currency.ether),
-              tokens: parseInt(user_currency.token + 0)
             });
 
             invent.currency.set({
