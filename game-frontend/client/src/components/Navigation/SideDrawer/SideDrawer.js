@@ -1,8 +1,8 @@
 import React from "react";
 import Aux from "../../../hoc/Aux";
-import NavItems from "../../Header/NavItems/NavItems";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import Icon from "../../../assets/images/user_images/iconfinder_game_of_thrones_game_thrones_series_character_avatar_ice_dragon_4527369.png";
+import NavItems from "./NavItems/NavItems";
 
 const SideDrawer = ({ closed, open, user }) => {
   console.log(user);
@@ -19,7 +19,7 @@ const SideDrawer = ({ closed, open, user }) => {
           <p>Level: {user.combat_level}</p>
         </div>
         <nav>
-          <NavItems />
+            <NavItems />
         </nav>
       </div>
     </Aux>

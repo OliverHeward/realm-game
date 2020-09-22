@@ -5,6 +5,7 @@ import { AuthContext } from "../../../context/auth";
 import { gql, useQuery } from "@apollo/client";
 
 import Arrows from "../PouchItem/Arrows";
+import ReactTooltip from "react-tooltip";
 
 const FETCH_AMMO_QUERY = gql`
   query getInvent($userId: ID!) {
@@ -21,21 +22,12 @@ const FETCH_AMMO_QUERY = gql`
 
 const AmmoPouch = () => {
   const { user } = useContext(AuthContext);
-  const [ showInfo, setShowInfo ] = useState(false);
 
   const { loading, error, data } = useQuery(FETCH_AMMO_QUERY, {
     variables: {
       userId: user.id,
     },
   });
-
-  const handleEnter = () => {
-        setShowInfo(true);
-  }
-
-  const handleLeave = () => {
-      setShowInfo(false);
-  }
 
   return (
     <div>
@@ -44,11 +36,15 @@ const AmmoPouch = () => {
         {!loading
           ? data.getInventory &&
             data.getInventory.ammo_pouch.map((ammo) => (
-                <div className="item-wrapper" onMouseEnter={handleEnter} onMouseLeave={handleLeave} key={ammo.item_name} >
-                    <Arrows key={ammo.item_name} quantity={ammo.quantity} />
-                    <div className={`info-box ${showInfo ? 'show-tab' : '' } `}>
-                        <p>{ammo.item_name}</p>
-                    </div>
+              <div className="item-wrapper" key={ammo.item_name} data-tip
+              data-for={ammo.item_name.toLowerCase()}>
+                <ReactTooltip id={ammo.item_name.toLowerCase()}>
+                  <span>{ammo.item_name}</span>
+                </ReactTooltip>
+                <Arrows
+                  key={ammo.item_name}
+                  quantity={ammo.quantity}
+                />
               </div>
             ))
           : null}

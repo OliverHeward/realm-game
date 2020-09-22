@@ -1,14 +1,41 @@
 div.backpack {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    div.backpack-item {
-        width: 100px; 
-        margin: 10px auto;
-        border-radius: 6px;
-        background-color: #3a3a3a;
-        padding: 6px;
-        height: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  div.backpack-wrapper {
+    div.backpack-tooltip {
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      div.tooltip-info {
+        margin: 5px auto;
+        div.item-stats {
+          margin: 3px auto;
+
+          div.stat-wrapper {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            span {
+              font-size: 0.8rem;
+              &.stat-type {
+                  margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
     }
+    div.backpack-item {
+      width: 100px;
+      margin: 10px auto;
+      border-radius: 6px;
+      background-color: #3a3a3a;
+      padding: 6px;
+      height: 100px;
+    }
+  }
 }

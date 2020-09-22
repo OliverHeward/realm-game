@@ -16,3 +16,19 @@ export const useForm = (callback, initialState = {}) => {
     values,
   };
 };
+
+// ! Come back to this 
+export const useObjClean = (object, prop) => {
+  if(object === null || object === undefined) {
+    return object;
+  } else if (Array.isArray(object)) {
+    object.map(item => {
+        if(item[prop] && ! item[prop].length) delete item[prop];
+    })
+    return object;
+  } else if (typeof object === "object") {
+   return console.log("object");
+  }
+  console.log(object);
+  return object;
+}

@@ -96,7 +96,7 @@ header {
   z-index: 90;
   flex-direction: row;
 
-  @media screen and (max-width: 499px) {
+  @media screen and (max-width: 767px) {
     .desktop-only {
       display: none;
     }
@@ -122,7 +122,7 @@ div.drawer-toggle {
     background-color: white;
     border-radius: 6px;
   }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 }
@@ -161,9 +161,19 @@ div.side-drawer {
   nav ul {
     display: flex;
     flex-direction: column;
+
+    a {
+      margin: 8px auto;
+      text-transform: capitalize;
+      font-size: 1.2rem;
+
+      &.active {
+        color: white;
+      }
+    }
   }
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 }
