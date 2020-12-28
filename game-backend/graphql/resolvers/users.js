@@ -10,6 +10,7 @@ const {
 const { SECRET_KEY } = require("../../config");
 const User = require("../../models/User");
 const Inventory = require("../../models/Inventory");
+const Items = require("../../models/EquipmentItems");
 
 function generateToken(user) {
   return jwt.sign(
@@ -123,12 +124,26 @@ module.exports = {
           quest_id: "",
           quest_start_time: String,
           quest_end_time: String,
-          quests_completed: []
-        }
+          quests_completed: [],
+        },
       });
 
       const res = await newUser.save();
       const token = generateToken(res);
+
+      const startingItems = {
+        backpack: {
+          bronze_sword: await Items.findById("5f6b4325a4dc02118f11e5fd"),
+          wooden_shield: await Items.findById("5f6b4325a4dc02118f11e5fe"),
+        },
+        worn_equipment: {
+          linen_torso: await Items.findById("5f6b4325a4dc02118f11e600"),
+          linen_trousers: await Items.findById("5f6b4325a4dc02118f11e601"),
+        },
+        bank: {
+          fathers_axe: await Items.findById("5f6b4325a4dc02118f11e5ff"),
+        },
+      };
 
       const newInvent = new Inventory({
         currency: {
@@ -198,42 +213,8 @@ module.exports = {
         ],
         worn_equipment: {
           equipment: [
-            {
-              item_name: "Cloth shirt",
-              rarity: "normal",
-              item_type: {
-                slot_type: "Primary",
-                equipment_type: "Sword",
-              },
-              item_description: "A few holes, but it will hold for a little... although it could use with a wash.",
-              item_stats: {
-                attack: 0,
-                ranged_attack: 0,
-                magic_attack: 0,
-                hitpoints: 0,
-                defence: 1,
-                ranged_defence: 0,
-                magic_defence: 1,
-              }
-            },
-            {
-              item_name: "Dirty linen trousers",
-              rarity: "normal",
-              item_type: {
-                slot_type: "Legs",
-                equipment_type: "Legs",
-              },
-              item_description: "Definitely slept in something the other night whilst wearing these...",
-              item_stats: {
-                attack: 0,
-                ranged_attack: 0,
-                magic_attack: 0,
-                hitpoints: 0,
-                defence: 1,
-                ranged_defence: 0,
-                magic_defence: 1
-              }
-            }
+            startingItems.worn_equipment.linen_torso,
+            startingItems.worn_equipment.linen_trousers,
           ],
           worn_equipment_stats: {
             attack: 0,
@@ -247,76 +228,22 @@ module.exports = {
         },
         backpack: {
           equipment: [
-            {
-              item_name: "Bronze Sword",
-              rarity: "normal",
-              item_type: {
-                slot_type: "Primary",
-                equipment_type: "Sword",
-              },
-              item_description:
-                "Your first sword, crafted from when you we're but a boy... many memories",
-              item_stats: {
-                attack: 1,
-                ranged_attack: 0,
-                magic_attack: 0,
-                defence: 0,
-                hitpoints: 0,
-                ranged_defence: 0,
-                magic_defence: 0,
-              },
-            },
-            {
-              item_name: "Wooden Shield",
-              rarity: "normal",
-              item_type: {
-                slot_type: "Primary",
-                equipment_type: "Sword",
-              },
-              item_description:
-                "Crafted from the tree back home that you swore mum you didn't take a chunk out of.",
-              item_stats: {
-                attack: 0,
-                ranged_attack: 0,
-                magic_attack: 0,
-                defence: 6,
-                hitpoints: 0,
-                ranged_defence: 3,
-                magic_defence: 0,
-              },
-            },
+            startingItems.backpack.bronze_sword,
+            startingItems.backpack.wooden_shield,
           ],
           misc: [
             {
               item_name: "Frayed fishing net",
               rarity: "normal",
-              item_description: "Served me well, but I\'m always surprised I ever catch anything with this.",
+              item_description:
+                "Served me well, but I'm always surprised I ever catch anything with this.",
               item_type: "Fishing",
               quantity: 1,
             },
           ],
         },
         bank: {
-          equipment: [
-            {
-              item_name: "Fathers Axe",
-              rarity: "normal",
-              item_type: {
-                slot_type: "Primary",
-                equipment_type: "Axe",
-              },
-              item_description: "Written on a small note attached to the axe are the words: \"Please, only use in grave peril my child \" ",
-              item_stats: {
-                attack: 4,
-                ranged_attack: 0,
-                magic_attack: 0,
-                defence: 6,
-                hitpoints: 0,
-                ranged_defence: 3,
-                magic_defence: 0,
-              }
-            },
-          ],
+          equipment: [startingItems.bank.fathers_axe],
           misc: [
             {
               item_name: "Welcome Pack",
@@ -324,7 +251,7 @@ module.exports = {
               item_description:
                 "A present, from me to you... thank you for beginning your adventure",
               item_type: "Pack",
-              quantity: 1
+              quantity: 1,
             },
           ],
         },

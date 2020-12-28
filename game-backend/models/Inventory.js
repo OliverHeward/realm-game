@@ -45,6 +45,7 @@ const inventorySchema = new Schema({
           slot_type: String,
           equipment_type: String,
         },
+        item_image: String,
         item_description: String,
         item_stats: {
           attack: Number,
@@ -76,6 +77,7 @@ const inventorySchema = new Schema({
           slot_type: String,
           equipment_type: String,
         },
+        item_image: String,
         item_description: String,
         item_stats: {
           attack: Number,
@@ -104,6 +106,7 @@ const inventorySchema = new Schema({
           slot_type: String,
           equipment_type: String,
         },
+        item_image: String,
         item_description: String,
         item_stats: {
           attack: Number,

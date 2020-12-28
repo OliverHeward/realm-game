@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://localhost:3000/jd-winter-comp/game.php -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Custom Stylesheet -->
+    <script src="./Jack Daniels Winter Competition_files/firebase-app.js"></script>
+    <script src="./Jack Daniels Winter Competition_files/firebase-database.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Jack Daniels Winter Competition_files/style.min.css">
+    <title>Jack Daniels Winter Competition</title>
+</head>
+
+
+
+<body cz-shortcut-listen="true"><script id="__bs_script__">//<![CDATA[
+    document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.26.12'><\/script>".replace("HOST", location.hostname));
+//]]></script><script async="" src="./Jack Daniels Winter Competition_files/browser-sync-client.js"></script>
+
+    <main class="site-main" id="main">
+        <section class="banner" id="main-banner">
+            <img src="./Jack Daniels Winter Competition_files/jd-logo.svg" alt="Jack Daniel&#39;s Logo" class="jd-header-img">
+            <div class="container">
+                <h1 class="no-fill">The <span class="fill">Countdown</span> <span class="no-fill-large">is on</span></h1>
+            </div>
+        </section> <!-- .banner.container -->
+
+        <section class="countdown" id="countdownSection">
+            <div class="container">
+                <div class="clockdiv" id="clockDiv">
+                    <h4>
+                        <div>
+                            <span id="days">00</span>
+                            <span class="clock-date">Days</span>
+                        </div>
+                        :
+                        <div>
+                            <span id="hours">00</span>
+                            <span class="clock-date">Hours</span>
+                        </div>
+                        :
+                        <div>
+                            <span id="minutes">00</span>
+                            <span class="clock-date">Minutes</span>
+                        </div>
+                        :
+                        <div>
+                            <span id="seconds">00</span>
+                            <span class="clock-date">Seconds</span>
+                        </div>
+                    </h4>
+                </div>
+                <p class="knockout">Until the epic prize draw</p>
+            </div>
+        </section>
+
+        <section class="cards">
+            <div class="container">
+                <h1 class="motlow card-title">Choose a door</h1>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="inner-card">
+                            <img src="./Jack Daniels Winter Competition_files/JD_AdventDoors-01.svg" alt="card" id="prizeCardOne" class="card">
+                            <div class="prize"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="inner-card">
+                            <img src="./Jack Daniels Winter Competition_files/JD_AdventDoors-02.svg" alt="card" id="prizeCardTwo" class="card">
+                            <div class="prize"></div>
+                        </div>
+
+                    </div>
+                    <div class="card">
+                        <div class="inner-card">
+                            <img src="./Jack Daniels Winter Competition_files/JD_AdventDoors-03.svg" alt="card" id="prizeCardThree" class="card">
+                            <div class="prize"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="motlow card-subtitle">To see if you're a winner</h1>
+            
+        </section>
+
+        <!-- DUMMY SECTIONS FOR PRIZES -->
+
+        <section class="prize-section">
+            <div class="container">
+                <div class="prize-content" id="festive_jumper">
+                    <p class="superclaredon">We just need to know what size jumper to give you</p>
+                    <form class="jumper-size" id="jumper_size">
+                        <div class="size-container">
+                            <label><input type="checkbox" name="size_medium">Medium</label>
+                            <label><input type="checkbox" name="size_large">Large</label>
+                            <label><input type="checkbox" name="size_extra_large">Extra Large</label>
+                        </div>
+                        <p class="superclaredon">Subject to availability. We will do our best to provide you with the size you've chosen.</p>
+                        <button class="button button--gold motlow claim">Claim Prize</button>
+                    </form>
+                </div> <!-- #festive_jumper -->
+                <div class="prize-content" id="festive_hipflask">
+                    <p class="superclaredon">We’ll be sending your prize out to you in the post within the next 14 days.</p>
+                </div> <!-- #festive_hipflask -->
+                <div class="prize-content" id="festive_socks">
+                    <p class="superclaredon">We’ll be sending your prize out to you in the post within the next 14 days.</p>
+                </div> <!-- #festive_socks -->
+                <div class="prize-content" id="no_winner">
+                    <h1 class="motlow">Maybe next time?</h1>
+                    <p class="superclaredon">You’ve been entered into our prize draw. We’ll inform all winners by Sunday 10th January. If you’re a winner, we will be sending your prize out to you in the post, within 14 days of you being notified.</p>
+                    <p class="superclaredon">Best of luck!</p>
+                </div> <!-- #no_winner -->
+
+                <div class="prize-claimed" style="display: none;">
+                    <h1 class="motlow">Thank you.</h1>
+                    <p class="superclaredon">We'll be sending your prize out to you in the post within the next 14 days.</p>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript" src="./Jack Daniels Winter Competition_files/game.js"></script>
+    </main> <!-- .site-main -->
+    <div class="mic-container">
+    <img src="./Jack Daniels Winter Competition_files/miclogo.svg" alt="Make it count logo">
+    <a class="button button--gold motlow" href="https://www.amazon.co.uk/jackdaniels" target="_blank">FIND OUT MORE</a>
+</div>
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-lower">
+            <p class="footer-title">Live freely. Drink responsibly.</p>
+            <div class="footer__terms-links superclaredon">
+                <a href="http://localhost:3000/jd-winter-comp/game.php#" target="_blank">Privacy Policy</a>
+                <a href="http://localhost:3000/jd-winter-comp/game.php#" target="_blank">Terms of Use</a>
+                <a href="http://localhost:3000/jd-winter-comp/game.php#" target="_blank">Terms &amp; Conditions</a>
+
+            </div>
+            <div class="footer__content">
+                <span class="footer__content-text knockout">18+ Only. UK only. No purchase necessary.<span>
+                        <span class="footer__content-text knockout">Buy a single jack daniel's tennessee whiskey or tennessee honey or ask for a card at participating venues, scan the code or enter your details at <a href="https://jackdanielschristmascountdown.com/">www.jackdanielschristmascountdown.com</a> to win prizes. 1,703 winning moments. Winners picked at random. One entry per person per day. ends 23:59 on 10/01/21. Non-transferable and non-refundable.</span>
+                        <span class="footer__content-text knockout">Promoter: Brown-forman beverages europe. 2020 Jack Daniel's</span>
+            </span></span></div>
+        </div>
+    </div>
+</footer>
+
+</body></html>

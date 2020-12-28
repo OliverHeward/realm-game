@@ -100,9 +100,11 @@ module.exports = gql`
     equipment_type: String!
   }
   type Equipment {
+    id: ID!
     item_name: String!
     rarity: String!
     item_type: ItemType
+    item_image: String
     item_description: String!
     item_stats: ItemStats
   }
@@ -179,6 +181,8 @@ module.exports = gql`
     getInventory(userInventId: ID!): Inventory
     getMissions: [Mission]
     getEquipment(userInventId: ID!): Inventory
+    getEquipmentItems: [Equipment]
+    getEquipmentItem(itemId: ID!): Equipment
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
@@ -194,5 +198,6 @@ module.exports = gql`
       userInventId: String
       missionId: String
     ): User
+    equipItem(userInventId: String!, equipmentId: ID!): Equipment!
   }
 `;
